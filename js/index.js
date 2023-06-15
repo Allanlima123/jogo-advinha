@@ -12,7 +12,6 @@ let musica      = document.querySelector("#musicaDeFundo");
 
 function gerarNumeroSecreto() {
     numeroSecreto = Math.floor(Math.random() * (max - min + 1)) + min;
-    // console.log(numeroSecreto)
 }
 
 function bloquearBtnChutar() {
@@ -27,7 +26,7 @@ function ativarBtnChutar() {
     btnChutar.style.cursor = 'pointer'
 }
 
-function validarNumeroDigitado(numero) {
+const validarNumeroDigitado = numero =>{
     if (numero <= 0 || numero > 10) {
         console.log('Tentativa inválida!')
         aviso.classList.add('errou');
@@ -39,16 +38,10 @@ function validarNumeroDigitado(numero) {
     }
 }
 
-function tocarMusicaDeFundo() {
-    musica.play();
-}
+const tocarMusicaDeFundo = () => musica.play();
 
-function ativarDesativarMusica() {
-    if (musica.muted) {
-        musica.muted = false;
-    } else {
-        musica.muted = true;
-    }
+const ativarDesativarMusica = () =>{
+    musica.muted ? musica.muted = false : musica.muted = true;
 }
 
 function pausarMusicaDeFundo() {
@@ -56,14 +49,12 @@ function pausarMusicaDeFundo() {
     musica.currentTime = 0;
 }
 
-function jogar() {
-    console.log("Jogando");
-    verificarSeAcertou();
-}
+const jogar = () => verificarSeAcertou();
 
-function mensagemRapida(mensagem) {
-    aviso.innerHTML = mensagem
-    setTimeout(function () {
+const mensagemRapida = mensagem => {
+    aviso.textContent = mensagem;
+
+    setTimeout(() =>{
         aviso.textContent = ''
         aviso.classList.remove("acertou");
         aviso.classList.remove("errou");
@@ -76,17 +67,17 @@ function gameOver(situacao){
         case "Acertou":
             aviso.classList.add('acertou')
             mensagemRapida('Acertou, o número secreto era ' + numeroSecreto)
-            break
+            break;
         
         case "Chute maior":
-            mensagemRapida('Chute maior que o número secreto')
             aviso.classList.add("errou")
-            break
+            mensagemRapida('Chute maior que o número secreto')
+            break;
         
         case "Chute menor":
             aviso.classList.add("errou");
             mensagemRapida("Chute Menor que o número Secreto");
-            break
+            break;
 
         default:
             console.log('Informe a Situação')
@@ -94,25 +85,23 @@ function gameOver(situacao){
 }
 
 function verificarSeAcertou(){
-    chute = parseInt(document.querySelector('#inputNumero').value);
+    let chute = parseInt(document.querySelector('#inputNumero').value);
 
-    console.log("N do chute " + contador++)
-    console.log('Chute ' + chute)
+    console.log("N° de chute: " + contador++)
+    console.log('Chutes: ' + chute)
 
     if(numeroSecreto === chute){
-        console.log("Acertou")
-        situacao = 'Acertou'
+        situacao = 'Acertou';
         gameOver(situacao);
         gerarNumeroSecreto();
     }else if(chute > numeroSecreto){
-        console.log('Chute maior')
         situacao = 'Chute maior'
         gameOver(situacao);
     }else if(chute < numeroSecreto){
-        console.log('Chute menor')
         situacao = 'Chute menor'
         gameOver(situacao);
     }else{
         console.log('Impossível verificar se acertou!')
     }
 };
+
