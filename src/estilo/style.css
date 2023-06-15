@@ -70,10 +70,8 @@ h1 {
 
 #btnChutar,
 #btnSom{
-    
     border: 0;
     border-radius:50px;
-
     background: #222;
     color: #fff;
     cursor: pointer;
